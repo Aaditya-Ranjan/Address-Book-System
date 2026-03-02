@@ -124,6 +124,32 @@ public class AddressBookMain {
         });
     }
 
+    public static void countByCity() {
+        System.out.println("\n--- Count of Contacts by City ---");
+
+        addressBookDictionary.forEach((bookName, addressBook) -> {
+            Map<String, Long> cityCount = addressBook.getCountByCity();
+            if (!cityCount.isEmpty()) {
+                System.out.println("\nAddress Book: " + bookName);
+                cityCount.forEach((city, count) ->
+                        System.out.println("  City: " + city + " | Count: " + count));
+            }
+        });
+    }
+
+    public static void countByState() {
+        System.out.println("\n--- Count of Contacts by State ---");
+
+        addressBookDictionary.forEach((bookName, addressBook) -> {
+            Map<String, Long> stateCount = addressBook.getCountByState();
+            if (!stateCount.isEmpty()) {
+                System.out.println("\nAddress Book: " + bookName);
+                stateCount.forEach((state, count) ->
+                        System.out.println("  State: " + state + " | Count: " + count));
+            }
+        });
+    }
+
     public static void displayAllAddressBooks() {
         if (addressBookDictionary.isEmpty()) {
             System.out.println("No Address Books Found!");
@@ -177,6 +203,12 @@ public class AddressBookMain {
 
         // View Grouped by State
         viewPersonsByState();
+
+        // Count by City
+        countByCity();
+
+        // Count by State
+        countByState();
 
         scanner.close();
     }

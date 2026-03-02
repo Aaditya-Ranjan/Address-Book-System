@@ -82,6 +82,16 @@ public class AddressBook {
                 .collect(Collectors.groupingBy(c -> c.state));
     }
 
+    public Map<String, Long> getCountByCity() {
+        return contactList.stream()
+                .collect(Collectors.groupingBy(c -> c.city, Collectors.counting()));
+    }
+
+    public Map<String, Long> getCountByState() {
+        return contactList.stream()
+                .collect(Collectors.groupingBy(c -> c.state, Collectors.counting()));
+    }
+
     public void displayAllContacts() {
         if (contactList.isEmpty()) {
             System.out.println("No Contacts Found!");
