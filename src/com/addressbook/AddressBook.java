@@ -1,6 +1,7 @@
 package com.addressbook;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -92,20 +93,19 @@ public class AddressBook {
                 .collect(Collectors.groupingBy(c -> c.state, Collectors.counting()));
     }
 
+    public List<ContactPerson> sortByName() {
+        return contactList.stream()
+                .sorted(Comparator.comparing((ContactPerson c) -> c.firstName)
+                        .thenComparing(c -> c.lastName))
+                .collect(Collectors.toList());
+    }
+
     public void displayAllContacts() {
         if (contactList.isEmpty()) {
             System.out.println("No Contacts Found!");
             return;
         }
         System.out.println("\n--- All Contacts ---");
-        for (ContactPerson contact : contactList) {
-            System.out.println(contact.firstName + " " + contact.lastName +
-                    " | " + contact.address +
-                    " | " + contact.city +
-                    " | " + contact.state +
-                    " | " + contact.zip +
-                    " | " + contact.phoneNumber +
-                    " | " + contact.email);
-        }
+        contactList.forEach(System.out::println);
     }
 }

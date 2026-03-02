@@ -101,8 +101,7 @@ public class AddressBookMain {
                 System.out.println("\nAddress Book: " + bookName);
                 cityMap.forEach((city, contacts) -> {
                     System.out.println("  City: " + city);
-                    contacts.forEach(c -> System.out.println(
-                            "    " + c.firstName + " " + c.lastName));
+                    contacts.forEach(c -> System.out.println("    " + c));
                 });
             }
         });
@@ -117,8 +116,7 @@ public class AddressBookMain {
                 System.out.println("\nAddress Book: " + bookName);
                 stateMap.forEach((state, contacts) -> {
                     System.out.println("  State: " + state);
-                    contacts.forEach(c -> System.out.println(
-                            "    " + c.firstName + " " + c.lastName));
+                    contacts.forEach(c -> System.out.println("    " + c));
                 });
             }
         });
@@ -146,6 +144,18 @@ public class AddressBookMain {
                 System.out.println("\nAddress Book: " + bookName);
                 stateCount.forEach((state, count) ->
                         System.out.println("  State: " + state + " | Count: " + count));
+            }
+        });
+    }
+
+    public static void sortContactsByName() {
+        System.out.println("\n--- Contacts Sorted Alphabetically by Name ---");
+
+        addressBookDictionary.forEach((bookName, addressBook) -> {
+            List<ContactPerson> sorted = addressBook.sortByName();
+            if (!sorted.isEmpty()) {
+                System.out.println("\nAddress Book: " + bookName);
+                sorted.forEach(c -> System.out.println("  " + c));
             }
         });
     }
@@ -209,6 +219,9 @@ public class AddressBookMain {
 
         // Count by State
         countByState();
+
+        // Sort by Name
+        sortContactsByName();
 
         scanner.close();
     }

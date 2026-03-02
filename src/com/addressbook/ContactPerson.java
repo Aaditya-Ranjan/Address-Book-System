@@ -31,4 +31,15 @@ public class ContactPerson {
         return this.firstName.equalsIgnoreCase(other.firstName) &&
                 this.lastName.equalsIgnoreCase(other.lastName);
     }
+
+    @Override
+    public String toString() {
+        return firstName + " " + lastName +
+                " | " + address +
+                " | " + city +
+                " | " + state +
+                " | " + zip +
+                " | " + phoneNumber +
+                " | " + email;
+    }
 }
