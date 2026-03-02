@@ -22,4 +22,13 @@ public class ContactPerson {
         this.phoneNumber = phoneNumber;
         this.email = email;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        ContactPerson other = (ContactPerson) obj;
+        return this.firstName.equalsIgnoreCase(other.firstName) &&
+                this.lastName.equalsIgnoreCase(other.lastName);
+    }
 }

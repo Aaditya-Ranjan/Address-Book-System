@@ -6,8 +6,16 @@ public class AddressBook {
     ArrayList<ContactPerson> contactList = new ArrayList<>();
 
     public void addContact(ContactPerson contact) {
-        contactList.add(contact);
-        System.out.println("Contact Added: " + contact.firstName + " " + contact.lastName);
+        boolean isDuplicate = contactList.stream()
+                .anyMatch(c -> c.equals(contact));
+
+        if (isDuplicate) {
+            System.out.println("Duplicate Entry! Contact already exists: " +
+                    contact.firstName + " " + contact.lastName);
+        } else {
+            contactList.add(contact);
+            System.out.println("Contact Added: " + contact.firstName + " " + contact.lastName);
+        }
     }
 
     public void editContact(String firstName, String lastName,
