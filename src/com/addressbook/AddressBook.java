@@ -1,6 +1,8 @@
 package com.addressbook;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class AddressBook {
     ArrayList<ContactPerson> contactList = new ArrayList<>();
@@ -55,6 +57,18 @@ public class AddressBook {
         if (!found) {
             System.out.println("Contact Not Found: " + firstName + " " + lastName);
         }
+    }
+
+    public List<ContactPerson> searchByCity(String city) {
+        return contactList.stream()
+                .filter(c -> c.city.equalsIgnoreCase(city))
+                .collect(Collectors.toList());
+    }
+
+    public List<ContactPerson> searchByState(String state) {
+        return contactList.stream()
+                .filter(c -> c.state.equalsIgnoreCase(state))
+                .collect(Collectors.toList());
     }
 
     public void displayAllContacts() {

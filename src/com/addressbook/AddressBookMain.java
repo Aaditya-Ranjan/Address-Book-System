@@ -1,6 +1,8 @@
 package com.addressbook;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Scanner;
 
 public class AddressBookMain {
@@ -47,6 +49,48 @@ public class AddressBookMain {
         return addressBookDictionary.get(name);
     }
 
+    public static void searchPersonByCity(String city) {
+        System.out.println("\n--- Search Results for City: " + city + " ---");
+        List<ContactPerson> results = new ArrayList<>();
+
+        addressBookDictionary.forEach((bookName, addressBook) -> {
+            List<ContactPerson> found = addressBook.searchByCity(city);
+            if (!found.isEmpty()) {
+                System.out.println("Address Book: " + bookName);
+                found.forEach(c -> System.out.println(
+                        c.firstName + " " + c.lastName +
+                                " | " + c.city +
+                                " | " + c.state));
+                results.addAll(found);
+            }
+        });
+
+        if (results.isEmpty()) {
+            System.out.println("No Contacts Found in City: " + city);
+        }
+    }
+
+    public static void searchPersonByState(String state) {
+        System.out.println("\n--- Search Results for State: " + state + " ---");
+        List<ContactPerson> results = new ArrayList<>();
+
+        addressBookDictionary.forEach((bookName, addressBook) -> {
+            List<ContactPerson> found = addressBook.searchByState(state);
+            if (!found.isEmpty()) {
+                System.out.println("Address Book: " + bookName);
+                found.forEach(c -> System.out.println(
+                        c.firstName + " " + c.lastName +
+                                " | " + c.city +
+                                " | " + c.state));
+                results.addAll(found);
+            }
+        });
+
+        if (results.isEmpty()) {
+            System.out.println("No Contacts Found in State: " + state);
+        }
+    }
+
     public static void displayAllAddressBooks() {
         if (addressBookDictionary.isEmpty()) {
             System.out.println("No Address Books Found!");
@@ -65,12 +109,10 @@ public class AddressBookMain {
         String continueAdding = "yes";
         while (continueAdding.equalsIgnoreCase("yes")) {
 
-            // Get Address Book Name
             System.out.print("\nEnter Address Book Name: ");
             String addressBookName = scanner.nextLine();
             AddressBook addressBook = getOrCreateAddressBook(addressBookName);
 
-            // Add Contacts to this Address Book
             System.out.println("\n--- Add Contacts to " + addressBookName + " ---");
             String addMore = "yes";
             while (addMore.equalsIgnoreCase("yes")) {
@@ -80,46 +122,22 @@ public class AddressBookMain {
                 addMore = scanner.nextLine();
             }
 
-            // Edit Contact in this Address Book
-            System.out.println("\n--- Edit Contact in " + addressBookName + " ---");
-            System.out.print("Enter First Name to Edit (or skip to press Enter): ");
-            String editFirstName = scanner.nextLine();
-            if (!editFirstName.isEmpty()) {
-                System.out.print("Enter Last Name to Edit: ");
-                String editLastName = scanner.nextLine();
-                System.out.print("Enter New Address: ");
-                String newAddress = scanner.nextLine();
-                System.out.print("Enter New City: ");
-                String newCity = scanner.nextLine();
-                System.out.print("Enter New State: ");
-                String newState = scanner.nextLine();
-                System.out.print("Enter New Zip: ");
-                String newZip = scanner.nextLine();
-                System.out.print("Enter New Phone Number: ");
-                String newPhoneNumber = scanner.nextLine();
-                System.out.print("Enter New Email: ");
-                String newEmail = scanner.nextLine();
-                addressBook.editContact(editFirstName, editLastName,
-                        newAddress, newCity, newState,
-                        newZip, newPhoneNumber, newEmail);
-            }
-
-            // Delete Contact in this Address Book
-            System.out.println("\n--- Delete Contact in " + addressBookName + " ---");
-            System.out.print("Enter First Name to Delete (or skip to press Enter): ");
-            String deleteFirstName = scanner.nextLine();
-            if (!deleteFirstName.isEmpty()) {
-                System.out.print("Enter Last Name to Delete: ");
-                String deleteLastName = scanner.nextLine();
-                addressBook.deleteContact(deleteFirstName, deleteLastName);
-            }
-
             System.out.print("\nAdd another Address Book? (yes/no): ");
             continueAdding = scanner.nextLine();
         }
 
         // Display All Address Books
         displayAllAddressBooks();
+
+        // Search by City
+        System.out.print("\nEnter City to Search: ");
+        String city = scanner.nextLine();
+        searchPersonByCity(city);
+
+        // Search by State
+        System.out.print("\nEnter State to Search: ");
+        String state = scanner.nextLine();
+        searchPersonByState(state);
 
         scanner.close();
     }
