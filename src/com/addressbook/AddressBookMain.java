@@ -8,6 +8,8 @@ public class AddressBookMain {
 
         Scanner scanner = new Scanner(System.in);
 
+        // Add Contact
+        System.out.println("\n--- Add Contact ---");
         System.out.print("Enter First Name: ");
         String firstName = scanner.nextLine();
 
@@ -40,6 +42,36 @@ public class AddressBookMain {
 
         AddressBook addressBook = new AddressBook();
         addressBook.addContact(contact);
+
+        // Edit Contact
+        System.out.println("\n--- Edit Contact ---");
+        System.out.print("Enter First Name to Edit: ");
+        String editFirstName = scanner.nextLine();
+
+        System.out.print("Enter Last Name to Edit: ");
+        String editLastName = scanner.nextLine();
+
+        System.out.print("Enter New Address: ");
+        String newAddress = scanner.nextLine();
+
+        System.out.print("Enter New City: ");
+        String newCity = scanner.nextLine();
+
+        System.out.print("Enter New State: ");
+        String newState = scanner.nextLine();
+
+        System.out.print("Enter New Zip: ");
+        String newZip = scanner.nextLine();
+
+        System.out.print("Enter New Phone Number: ");
+        String newPhoneNumber = scanner.nextLine();
+
+        System.out.print("Enter New Email: ");
+        String newEmail = scanner.nextLine();
+
+        addressBook.editContact(editFirstName, editLastName,
+                newAddress, newCity, newState,
+                newZip, newPhoneNumber, newEmail);
 
         scanner.close();
     }
