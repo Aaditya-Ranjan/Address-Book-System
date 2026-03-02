@@ -3,13 +3,10 @@ package com.addressbook;
 import java.util.Scanner;
 
 public class AddressBookMain {
-    public static void main(String[] args) {
-        System.out.println("Welcome to Address Book Program");
 
-        Scanner scanner = new Scanner(System.in);
+    static Scanner scanner = new Scanner(System.in);
 
-        // Add Contact
-        System.out.println("\n--- Add Contact ---");
+    public static ContactPerson getContactFromConsole() {
         System.out.print("Enter First Name: ");
         String firstName = scanner.nextLine();
 
@@ -34,38 +31,44 @@ public class AddressBookMain {
         System.out.print("Enter Email: ");
         String email = scanner.nextLine();
 
-        ContactPerson contact = new ContactPerson(
-                firstName, lastName, address,
-                city, state, zip,
-                phoneNumber, email
-        );
+        return new ContactPerson(firstName, lastName, address,
+                city, state, zip, phoneNumber, email);
+    }
+
+    public static void main(String[] args) {
+        System.out.println("Welcome to Address Book Program");
 
         AddressBook addressBook = new AddressBook();
-        addressBook.addContact(contact);
+
+        // Add Multiple Contacts
+        System.out.println("\n--- Add Contacts ---");
+        String addMore = "yes";
+        while (addMore.equalsIgnoreCase("yes")) {
+            ContactPerson contact = getContactFromConsole();
+            addressBook.addContact(contact);
+            System.out.print("Add another contact? (yes/no): ");
+            addMore = scanner.nextLine();
+        }
+
+        // Display All Contacts
+        addressBook.displayAllContacts();
 
         // Edit Contact
         System.out.println("\n--- Edit Contact ---");
         System.out.print("Enter First Name to Edit: ");
         String editFirstName = scanner.nextLine();
-
         System.out.print("Enter Last Name to Edit: ");
         String editLastName = scanner.nextLine();
-
         System.out.print("Enter New Address: ");
         String newAddress = scanner.nextLine();
-
         System.out.print("Enter New City: ");
         String newCity = scanner.nextLine();
-
         System.out.print("Enter New State: ");
         String newState = scanner.nextLine();
-
         System.out.print("Enter New Zip: ");
         String newZip = scanner.nextLine();
-
         System.out.print("Enter New Phone Number: ");
         String newPhoneNumber = scanner.nextLine();
-
         System.out.print("Enter New Email: ");
         String newEmail = scanner.nextLine();
 
@@ -77,11 +80,13 @@ public class AddressBookMain {
         System.out.println("\n--- Delete Contact ---");
         System.out.print("Enter First Name to Delete: ");
         String deleteFirstName = scanner.nextLine();
-
         System.out.print("Enter Last Name to Delete: ");
         String deleteLastName = scanner.nextLine();
 
         addressBook.deleteContact(deleteFirstName, deleteLastName);
+
+        // Display All Contacts After Changes
+        addressBook.displayAllContacts();
 
         scanner.close();
     }
