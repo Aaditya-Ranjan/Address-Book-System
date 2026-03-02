@@ -3,6 +3,7 @@ package com.addressbook;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 public class AddressBookMain {
@@ -91,6 +92,38 @@ public class AddressBookMain {
         }
     }
 
+    public static void viewPersonsByCity() {
+        System.out.println("\n--- Contacts Grouped by City ---");
+
+        addressBookDictionary.forEach((bookName, addressBook) -> {
+            Map<String, List<ContactPerson>> cityMap = addressBook.getContactsGroupedByCity();
+            if (!cityMap.isEmpty()) {
+                System.out.println("\nAddress Book: " + bookName);
+                cityMap.forEach((city, contacts) -> {
+                    System.out.println("  City: " + city);
+                    contacts.forEach(c -> System.out.println(
+                            "    " + c.firstName + " " + c.lastName));
+                });
+            }
+        });
+    }
+
+    public static void viewPersonsByState() {
+        System.out.println("\n--- Contacts Grouped by State ---");
+
+        addressBookDictionary.forEach((bookName, addressBook) -> {
+            Map<String, List<ContactPerson>> stateMap = addressBook.getContactsGroupedByState();
+            if (!stateMap.isEmpty()) {
+                System.out.println("\nAddress Book: " + bookName);
+                stateMap.forEach((state, contacts) -> {
+                    System.out.println("  State: " + state);
+                    contacts.forEach(c -> System.out.println(
+                            "    " + c.firstName + " " + c.lastName));
+                });
+            }
+        });
+    }
+
     public static void displayAllAddressBooks() {
         if (addressBookDictionary.isEmpty()) {
             System.out.println("No Address Books Found!");
@@ -138,6 +171,12 @@ public class AddressBookMain {
         System.out.print("\nEnter State to Search: ");
         String state = scanner.nextLine();
         searchPersonByState(state);
+
+        // View Grouped by City
+        viewPersonsByCity();
+
+        // View Grouped by State
+        viewPersonsByState();
 
         scanner.close();
     }

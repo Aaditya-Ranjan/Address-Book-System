@@ -2,6 +2,7 @@ package com.addressbook;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class AddressBook {
@@ -69,6 +70,16 @@ public class AddressBook {
         return contactList.stream()
                 .filter(c -> c.state.equalsIgnoreCase(state))
                 .collect(Collectors.toList());
+    }
+
+    public Map<String, List<ContactPerson>> getContactsGroupedByCity() {
+        return contactList.stream()
+                .collect(Collectors.groupingBy(c -> c.city));
+    }
+
+    public Map<String, List<ContactPerson>> getContactsGroupedByState() {
+        return contactList.stream()
+                .collect(Collectors.groupingBy(c -> c.state));
     }
 
     public void displayAllContacts() {
