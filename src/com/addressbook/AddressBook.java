@@ -100,6 +100,24 @@ public class AddressBook {
                 .collect(Collectors.toList());
     }
 
+    public List<ContactPerson> sortByCity() {
+        return contactList.stream()
+                .sorted(Comparator.comparing(c -> c.city))
+                .collect(Collectors.toList());
+    }
+
+    public List<ContactPerson> sortByState() {
+        return contactList.stream()
+                .sorted(Comparator.comparing(c -> c.state))
+                .collect(Collectors.toList());
+    }
+
+    public List<ContactPerson> sortByZip() {
+        return contactList.stream()
+                .sorted(Comparator.comparing(c -> c.zip))
+                .collect(Collectors.toList());
+    }
+
     public void displayAllContacts() {
         if (contactList.isEmpty()) {
             System.out.println("No Contacts Found!");

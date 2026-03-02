@@ -160,6 +160,42 @@ public class AddressBookMain {
         });
     }
 
+    public static void sortContactsByCity() {
+        System.out.println("\n--- Contacts Sorted by City ---");
+
+        addressBookDictionary.forEach((bookName, addressBook) -> {
+            List<ContactPerson> sorted = addressBook.sortByCity();
+            if (!sorted.isEmpty()) {
+                System.out.println("\nAddress Book: " + bookName);
+                sorted.forEach(c -> System.out.println("  " + c));
+            }
+        });
+    }
+
+    public static void sortContactsByState() {
+        System.out.println("\n--- Contacts Sorted by State ---");
+
+        addressBookDictionary.forEach((bookName, addressBook) -> {
+            List<ContactPerson> sorted = addressBook.sortByState();
+            if (!sorted.isEmpty()) {
+                System.out.println("\nAddress Book: " + bookName);
+                sorted.forEach(c -> System.out.println("  " + c));
+            }
+        });
+    }
+
+    public static void sortContactsByZip() {
+        System.out.println("\n--- Contacts Sorted by Zip ---");
+
+        addressBookDictionary.forEach((bookName, addressBook) -> {
+            List<ContactPerson> sorted = addressBook.sortByZip();
+            if (!sorted.isEmpty()) {
+                System.out.println("\nAddress Book: " + bookName);
+                sorted.forEach(c -> System.out.println("  " + c));
+            }
+        });
+    }
+
     public static void displayAllAddressBooks() {
         if (addressBookDictionary.isEmpty()) {
             System.out.println("No Address Books Found!");
@@ -222,6 +258,15 @@ public class AddressBookMain {
 
         // Sort by Name
         sortContactsByName();
+
+        // Sort by City
+        sortContactsByCity();
+
+        // Sort by State
+        sortContactsByState();
+
+        // Sort by Zip
+        sortContactsByZip();
 
         scanner.close();
     }
