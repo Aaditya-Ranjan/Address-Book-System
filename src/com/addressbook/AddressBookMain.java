@@ -73,6 +73,16 @@ public class AddressBookMain {
                 newAddress, newCity, newState,
                 newZip, newPhoneNumber, newEmail);
 
+        // Delete Contact
+        System.out.println("\n--- Delete Contact ---");
+        System.out.print("Enter First Name to Delete: ");
+        String deleteFirstName = scanner.nextLine();
+
+        System.out.print("Enter Last Name to Delete: ");
+        String deleteLastName = scanner.nextLine();
+
+        addressBook.deleteContact(deleteFirstName, deleteLastName);
+
         scanner.close();
     }
 }
